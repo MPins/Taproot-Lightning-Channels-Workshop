@@ -1,6 +1,8 @@
 # Taproot Lightning Channels from Scratch Workshop
 
-This workshop is designed for developers interested in the details of Taproot transactions required to create and operate [simple taproot channels](https://github.com/lightning/bolts/pull/995).
+This workshop is designed for developers interested in the details of Taproot transactions required to create and operate [simple taproot channels](https://github.com/lightning/bolts/pull/995). This repo contains a series of python jupyter-notebooks to explain how lightning transactions are created.
+
+The notebooks will start up an instance of bitcoind in regtest mode so that transactions can be validated and broadcasted on regtest.
 
 Participants will build the following transactions from scratch during the session:
 - channel funding transaction
@@ -28,7 +30,7 @@ Some prior understanding of Schnorr signatures and Taproot is recommended for th
 
 ### Bolt
 
-This is still work-in-progress specificaation, but it is worth to know how Lightning Network will leverage the Taproot capabilities.
+This is still a work-in-progress specification, but it’s worth understanding its current state and keeping track of changes.
 
 - [extension-bolt: simple taproot channels (feature 80/81)](https://github.com/lightning/bolts/pull/995)
 
