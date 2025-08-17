@@ -2,3 +2,4 @@ base58==2.*
 ecdsa~=0.18
 notebook==6.*
 setuptools>=68.0
+bip-utils>=2.9.0
