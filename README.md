@@ -24,6 +24,7 @@ Some prior understanding of Schnorr signatures and Taproot is recommended for th
 
 ### Taproot
 
+- [Taproot Channel Transactions](https://ellemouton.com/posts/taproot-chan-txs/)
 - [bip-0341](https://github.com/bitcoin/bips/blob/master/bip-0341.mediawiki): This technical document proposes a new SegWit version 1 output type, with spending rules based on Taproot, Schnorr signatures, and Merkle branches.
 - [bip-0342](https://github.com/bitcoin/bips/blob/master/bip-0342.mediawiki): This technical document specifies the semantics of the initial scripting system under bip-0341.
 - [Bitcoin Optech’s Overview of the Taproot & Tapscript proposed BIPs](https://bitcoinops.org/en/newsletters/2019/05/14/#overview-of-the-taproot--tapscript-proposed-bips): Summary of bip-341 and bip-342.
