@@ -2,4 +2,3 @@
 from functions.setup_testshell import *
 from functions.hashfunctions import *
 from functions.script import *
-from functions.wallet import *
