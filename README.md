@@ -35,6 +35,10 @@ This is still a work-in-progress specification, but it’s worth understanding i
 
 - [extension-bolt: simple taproot channels (feature 80/81)](https://github.com/lightning/bolts/pull/995)
 
+### Musig2
+
+- [bip-327](https://github.com/bitcoin/bips/blob/master/bip-0327.mediawiki): This document proposes a standard for the [MuSig2](https://eprint.iacr.org/2020/1261.pdf) multi-signature scheme. The standard is compatible with [BIP340](https://github.com/bitcoin/bips/blob/master/bip-0340.mediawiki) public keys and signatures. It supports tweaking, which allows deriving [BIP32](https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki) child keys from aggregate public keys and creating [BIP341](https://github.com/bitcoin/bips/blob/master/bip-0341.mediawiki) Taproot outputs with key and script paths. 
+
 ## About the Speaker
 Pins is a  [Vinteum](https://vinteum.org/)  grantee currently contributing to LND. He began his career as a software developer but later transitioned into commercial and sales roles in cybersecurity within big tech companies. As he progressed in his career, he found himself distanced from hands-on programming. However, his passion for Bitcoin and open-source software reignited his motivation to return to development. Over the past two years, he has focused on relearning programming and began contributing to LND in the past year.
 
