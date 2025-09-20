@@ -1,4 +1,4 @@
-from functions.hashfunctions import *
+from hashlib import sha256
 from functions.test_framework.key import *
 
 # Flip the (bit_index % 8) bit of the (bit_index // 8) byte in value.
@@ -17,11 +17,11 @@ def generate_from_seed(seed: bytes, I: int) -> bytes:
     for B in range(47, -1, -1):  # Iterate from 47 down to 0
         if (I & (1 << B)) != 0:  # Check if bit B is set in I
             flip_bit(P, B)  # Flip the corresponding bit in P
-            P = bytearray(sha256(P))  # Hash P and convert back to bytearray
+            P = bytearray(sha256(P).digest())  # Hash P and convert back to bytearray
 
     return bytes(P)  # Convert back to bytes before returning
 
-class PerCommitmentKey:
+class per_commitment:
     """
     Helper for generating per-commitment private/public keys
     from a per_commitment_seed and an index.
@@ -29,7 +29,7 @@ class PerCommitmentKey:
 
     def __init__(self, seed: bytes, index: int):
         self.seed = seed
-        self.index = index
+        self.index = 0xFFFFFFFFFFFF - index
         self._priv = None
         self._pub = None
 
