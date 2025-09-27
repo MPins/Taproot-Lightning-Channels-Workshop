@@ -5,12 +5,11 @@ This workshop is designed for developers interested in the details of Taproot tr
 The notebooks will start up an instance of bitcoind in regtest mode so that transactions can be validated and broadcasted on regtest.
 
 Participants will build the following transactions from scratch during the session:
+- lightning node keys derivation
 - channel funding transaction
 - initial commitment transaction
-- pending htlc commitment transaction
-- htlc timeout and successful transactions
+- in-flight htlc commitment transaction
 - collaborative closing transaction
-- unilateral closing transaction
 
 ## Background
 
