@@ -1,5 +1,6 @@
-from hashlib import sha256
+from hashlib import sha256, hmac
 from functions.test_framework.key import *
+from functions.bip0327.reference import nonce_gen
 
 # Flip the (bit_index % 8) bit of the (bit_index // 8) byte in value.
 def flip_bit(value: bytearray, bit_index: int):
@@ -49,3 +50,11 @@ class per_commitment:
     def get_compressed(self) -> bytes:
         """Return the per-commitment public key compressed (33 bytes)."""
         return self.get_pub().get_bytes(bip340=False)
+    
+    # Generate a nonce for signing a transaction using the per-commitment secret.
+    def nonce_per_commitment(self, seed: bytes, index: int, sk: bytes, pk: bytes, agg_pubkey_tweaked: bytes, sighash: bytes):
+
+        shachain_root_hash = sha256(seed).digest()
+        nonce_seed = hmac.new(key=shachain_root_hash, msg=b"taproot-rev-root", digestmod=sha256).digest()
+        k = generate_from_seed(nonce_seed, 0xFFFFFFFFFFFF - index)
+        return nonce_gen(sk, pk, agg_pubkey_tweaked, sighash, k) 
