@@ -10,9 +10,9 @@ class derivate_key:
     pub  = Pub(priv)
     """
 
-    def __init__(self, seed: bytes, family: int):
-        # Derive basepoints: m/1017'/1'/family'/0/0
-        base_ctx = Bip32Slip10Secp256k1.FromSeed(seed).DerivePath(f"m/1017'/1'/{family}'/0/0")
+    def __init__(self, seed: bytes, family: int, channel_index: 0):
+        # Derive basepoints: m/1017'/1'/family'/0/channel_index
+        base_ctx = Bip32Slip10Secp256k1.FromSeed(seed).DerivePath(f"m/1017'/1'/{family}'/0/{channel_index}")
         self._base_secret_bytes  = base_ctx.PrivateKey().Raw().ToBytes()
         self._base_secret_int = base_ctx.PrivateKey().Raw().ToInt()
         self._base_bytes = base_ctx.PublicKey().RawCompressed().ToBytes()
@@ -45,9 +45,9 @@ class derivate_revocation_key:
     priv = (base_secret * H(base || pc) + pcs * H(pc || base)) mod n
     """
 
-    def __init__(self, seed: bytes):
-        # Derive revocation basepoints: m/1017'/1'/1'/0/0
-        base_ctx = Bip32Slip10Secp256k1.FromSeed(seed).DerivePath(f"m/1017'/1'/1'/0/0")
+    def __init__(self, seed: bytes, channel_index: int):
+        # Derive revocation basepoints: m/1017'/1'/1'/0/channel_index
+        base_ctx = Bip32Slip10Secp256k1.FromSeed(seed).DerivePath(f"m/1017'/1'/1'/0/{channel_index}")
         self._base_secret_int = base_ctx.PrivateKey().Raw().ToInt()
         self._base_bytes = base_ctx.PublicKey().RawCompressed().ToBytes()
 
