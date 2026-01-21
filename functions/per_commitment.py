@@ -1,10 +1,14 @@
 from hashlib import sha256
 import hmac
+from typing import Tuple
 from functions.test_framework.key import *
 from functions.bip0327.reference import nonce_gen
 
+# Maximum commitment index (2^48 - 1)
+MAX_COMMITMENT_INDEX = 0xFFFFFFFFFFFF
+
 # Flip the (bit_index % 8) bit of the (bit_index // 8) byte in value.
-def flip_bit(value: bytearray, bit_index: int):
+def flip_bit(value: bytearray, bit_index: int) -> None:
     byte_index = bit_index // 8  # Get the byte index
     bit_position = bit_index % 8  # Get the bit position within the byte
     value[byte_index] ^= (1 << bit_position)  # Flip the bit using XOR
@@ -30,8 +34,16 @@ class per_commitment:
     """
 
     def __init__(self, seed: bytes, index: int):
+        # Validate seed is exactly 32 bytes
+        if len(seed) != 32:
+            raise ValueError(f"Seed must be exactly 32 bytes, got {len(seed)} bytes")
+
+        # Validate index is within valid range (0 to 2^48 - 1)
+        if not (0 <= index <= MAX_COMMITMENT_INDEX):
+            raise ValueError(f"Index must be between 0 and {MAX_COMMITMENT_INDEX}, got {index}")
+
         self.seed = seed
-        self.index = 0xFFFFFFFFFFFF - index
+        self.index = MAX_COMMITMENT_INDEX - index
         self._priv = None
         self._pub = None
 
@@ -53,9 +65,8 @@ class per_commitment:
         return self.get_pub().get_bytes(bip340=False)
     
 # Generate a nonce for signing a transaction using the per-commitment secret.
-def nonce_per_commitment(seed: bytes, index: int, sk: bytes, pk: bytes, agg_pubkey_tweaked: bytes, sighash: bytes):
-
+def nonce_per_commitment(seed: bytes, index: int, sk: bytes, pk: bytes, agg_pubkey_tweaked: bytes, sighash: bytes) -> Tuple[bytearray, bytes]:
     shachain_root_hash = sha256(seed).digest()
     nonce_seed = hmac.new(key=shachain_root_hash, msg=b"taproot-rev-root", digestmod=sha256).digest()
-    k = generate_from_seed(nonce_seed, 0xFFFFFFFFFFFF - index)
+    k = generate_from_seed(nonce_seed, MAX_COMMITMENT_INDEX - index)
     return nonce_gen(sk, pk, agg_pubkey_tweaked, sighash, k) 

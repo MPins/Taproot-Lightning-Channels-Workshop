@@ -10,7 +10,7 @@ class derivate_key:
     pub  = Pub(priv)
     """
 
-    def __init__(self, seed: bytes, family: int, channel_index: 0):
+    def __init__(self, seed: bytes, family: int, channel_index: int = 0):
         # Derive basepoints: m/1017'/1'/family'/0/channel_index
         base_ctx = Bip32Slip10Secp256k1.FromSeed(seed).DerivePath(f"m/1017'/1'/{family}'/0/{channel_index}")
         self._base_secret_bytes  = base_ctx.PrivateKey().Raw().ToBytes()
@@ -18,7 +18,7 @@ class derivate_key:
         self._base_bytes = base_ctx.PublicKey().RawCompressed().ToBytes()
 
     def get_pubkey(self, pc: ECPubKey) -> ECPubKey:
-        """Return delayed publey key as ECPubKey object."""
+        """Return delayed pubkey key as ECPubKey object."""
         priv = self.get_privkey(pc)
         pub = priv.get_pubkey()
         
