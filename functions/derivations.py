@@ -18,14 +18,14 @@ class derivate_key:
         self._base_bytes = base_ctx.PublicKey().RawCompressed().ToBytes()
 
     def get_pubkey(self, pc: ECPubKey) -> ECPubKey:
-        """Return delayed pubkey key as ECPubKey object."""
+        """Return pubkey key as ECPubKey object."""
         priv = self.get_privkey(pc)
         pub = priv.get_pubkey()
         
         return pub
 
     def get_privkey(self, pc: ECPubKey) -> ECKey:
-        """Return delayed private key as ECKey object."""
+        """Return private key as ECKey object."""
 
         sha = sha256(pc.get_bytes(bip340=False) + self._base_bytes).digest()
         sha_int = int.from_bytes(sha, 'big') % SECP256K1_N   
