@@ -32,6 +32,9 @@ class derivate_key:
         pk = (self._base_secret_int + sha_int) % SECP256K1_N
         priv = ECKey()
         priv.set(pk.to_bytes(32, "big"), compressed=True)
+        # Taproot (BIP340/341) requires even Y for private keys
+        if pk % 2 != 0: 
+            priv.negate()
         
         return priv
     
@@ -56,6 +59,9 @@ class derivate_revocation_key:
         s1 =  int.from_bytes(sha256(self._base_bytes + pc.get_bytes(bip340=False)).digest(), 'big') % SECP256K1_N
         s2 = int.from_bytes(sha256(pc.get_bytes(bip340=False) + self._base_bytes).digest(), 'big') % SECP256K1_N
         pub =  ECPubKey().set(self._base_bytes).mul(s1) + pc.mul(s2)
+        # Taproot (BIP340/341) requires even Y for pubkeys keys
+        if pub.get_y() % 2 != 0:
+            pub.negate()
         
         return pub
 
@@ -67,6 +73,9 @@ class derivate_revocation_key:
 
         pcs_int = int.from_bytes(pcs.get_bytes(), 'big')
         sk = (self._base_secret_int * s1 + pcs_int * s2) % SECP256K1_N
+        # Taproot (BIP340/341) requires even Y for private keys
+        if sk % 2 != 0:
+            sk = SECP256K1_N - sk
 
         priv = ECKey()
         priv.set(sk.to_bytes(32, "big"), compressed=True)
