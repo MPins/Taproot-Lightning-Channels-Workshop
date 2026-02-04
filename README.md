@@ -10,6 +10,9 @@ Participants will build the following transactions from scratch during the sessi
 - initial commitment transaction
 - in-flight htlc commitment transaction
 - collaborative closing transaction
+- htlc-timeout transaction
+
+Each chapter notebook includes a comprehensive summary at the end, covering key concepts, transaction structures, and takeaways.
 
 ## Background
 
