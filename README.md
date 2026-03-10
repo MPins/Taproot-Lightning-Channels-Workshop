@@ -1,6 +1,6 @@
 # Taproot Lightning Channels from Scratch Workshop
 
-This workshop is designed for developers interested in the details of Taproot transactions required to create and operate [simple taproot channels](https://github.com/lightning/bolts/pull/995). This repo contains a series of python jupyter-notebooks to explain how lightning transactions are created.
+This workshop is designed for developers interested in the details of Taproot transactions required to create and operate simple taproot channels (https://github.com/lightning/bolts/pull/995). This repo contains a series of python jupyter-notebooks to explain how lightning transactions are created.
 
 The notebooks will start up an instance of bitcoind in regtest mode so that transactions can be validated and broadcasted on regtest.
 
